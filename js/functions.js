@@ -1,27 +1,25 @@
-function checkLenght (chekingString, maxLenght) {
+const checkLenght = function (chekingString, maxLenght) {
   return chekingString.length <= maxLenght;
-}
+};
 
-function replaceSpace (string) {
-  return string.replaceAll(' ', '');
-}
+checkLenght ('Погром', 6);
+checkLenght ('Погром', 5);
+checkLenght ('Погром', 9);
 
-function toLower (string) {
-  return string.toLowerCase();
-}
+const normalizeString = function (string) {
+  return string.replaceAll(' ', '').toLowerCase();
+};
 
-function normalizeString (chekingString) {
-  let result = replaceSpace(chekingString);
-  result = toLower(result);
-  return result;
-}
-
-function isPalindrom (chekingString) {
+const isPalindrom = function (chekingString) {
   const normalString = normalizeString(chekingString);
   let invertedString = '';
+  const len = normalString.length - 1;
 
-  for (let i = normalString.length - 1; i >= 0; i--) {
+  for (let i = len; i >= 0; i--) {
     invertedString += normalString[i];
   }
   return normalString === invertedString;
-}
+};
+
+isPalindrom('Дом Мод');
+isPalindrom('Сон носа');
