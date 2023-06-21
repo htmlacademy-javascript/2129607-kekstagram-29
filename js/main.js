@@ -1,3 +1,11 @@
+const AVATAR_COUNT = 6;
+const COMMENT_COUNT = 30;
+const MIN_LIKES = 15;
+const MAX_LIKES = 200;
+const PHOTO_COUNT = 25;
+const MIN_COMMENTS = 1;
+const MAX_COMMENTS = 2;
+
 const NAMES = [
   'Вадим',
   'Лена',
@@ -31,21 +39,16 @@ const DESCRIPTIONS = [
 ];
 
 //возвращает случайное число из заданного диапазона
-const getRandomInteger = (a, b) => {
-  const lower = Math.ceil(Math.min(a, b));
-  const upper = Math.floor(Math.max(a, b));
-  const result = Math.random() * (upper - lower + 1) + lower;
-  return Math.floor(result);
-};
+const getRandomInteger = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
 
 //возвращает случайный элемент из массива
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
-//возвращает случайные комментарии в случайном количестве
+//возвращает случайные комментарии из заданного количества строк
 const getRandomMessage = (count) => {
   let message = getRandomArrayElement(MESSAGES);
 
-  if (count === 2) {
+  for (let i = 2; i <= count; i++) {
     message += ` ${getRandomArrayElement(MESSAGES)}`;
   }
 
@@ -54,37 +57,42 @@ const getRandomMessage = (count) => {
 
 //создает номер по возрастающей
 const getId = () => {
-  let commentId = 0;
+  let id = 0;
 
   return function () {
-    commentId++;
-    return commentId;
+    id++;
+    return id;
   };
 };
 
 //генераторы Id для разных блоков
 const createCommentId = getId();
 const createPhotoId = getId();
-const createUrl = getId();
 
 //создает комментарий со случайным наполнением
 const getComment = () => ({
   id : createCommentId(),
-  avatar : `img/avatar-${getRandomInteger(1, 6)}.svg`,
-  message : getRandomMessage(getRandomInteger(1, 2)),
+  avatar : `img/avatar-${getRandomInteger(1, AVATAR_COUNT)}.svg`,
+  message : getRandomMessage(getRandomInteger(MIN_COMMENTS, MAX_COMMENTS)),
   name : getRandomArrayElement(NAMES),
 });
 
 //создаёт массив из случайного количество комментариев
-const createComments = () => Array.from({length: getRandomInteger(0, 30)}, getComment);
+const createComments = () => Array.from({length: getRandomInteger(0, COMMENT_COUNT)}, getComment);
 
 //создает блок описания фото со случайным наполнением
-const getPhotoDescription = () => ({
-  id: createPhotoId(),
-  url: `photos/${createUrl()}.jpg`,
-  description: getRandomArrayElement(DESCRIPTIONS),
-  likes: getRandomInteger(15, 200),
-  comments: createComments(),
-});
+const getPhotoDescription = () => {
+  const id = createPhotoId();
+  return {
+    id: id,
+    url: `photos/${id}.jpg`,
+    description: getRandomArrayElement(DESCRIPTIONS),
+    likes: getRandomInteger(MIN_LIKES, MAX_LIKES),
+    comments: createComments(),
+  };
+};
 
-const createDescriptions = () => Array.from({length: 25}, getPhotoDescription);
+const createDescriptions = () => Array.from({length: PHOTO_COUNT}, getPhotoDescription);
+
+//проверка
+//createDescriptions();
