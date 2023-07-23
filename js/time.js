@@ -96,7 +96,7 @@ const isMeetingInTime = (dayStart, dayEnd, meetingStart, meetingLength) => {
 export {isMeetingInTime};
 
 // isMeetingInTime('08:00', '17:30', '14:00', 90); // true
-isMeetingInTime('8:0', '10:0', '8:0', 120);     // true ошибка
+//isMeetingInTime('8:0', '10:0', '8:0', 120); // true ошибка
 // isMeetingInTime('08:00', '14:30', '14:00', 90); // false ошибка
 // isMeetingInTime('14:00', '17:30', '08:0', 90);  // false
 // isMeetingInTime('8:00', '17:30', '08:00', 900); // false
