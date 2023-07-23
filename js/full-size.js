@@ -53,7 +53,7 @@ const closeFullSize = () => {
 };
 
 openImg.addEventListener('click', (evt) => {
-  if (evt.target.matches('.picture')) {
+  if (evt.target.matches('.picture__img')) {
     openFullSize();
   }
 });
