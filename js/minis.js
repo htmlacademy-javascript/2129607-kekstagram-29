@@ -5,8 +5,6 @@ const minisList = document.querySelector('.pictures');
 const minisTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const minis = createDescriptions();
 const minisListFragment = document.createDocumentFragment();
-const title = document.querySelector('.pictures__title');
-
 
 minis.forEach(({url, description, comments, likes}) => {
   const minisElement = minisTemplate.cloneNode(true);

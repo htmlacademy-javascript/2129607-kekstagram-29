@@ -1,11 +1,6 @@
 import { isEscapeKey, isEnterKey } from './util.js';
 
-/*окно должно открываться по клику на миниатюру, данные описания берём из объекта
-для отображения: удалить ХИДДЕН у элемента биг-пикча и заполнить его соответствующим контентом
-Адрес изображения url подставьте как src изображения внутри блока .big-picture__img.
-Количество лайков likes подставьте как текстовое содержание элемента .likes-count.
-Количество комментариев comments подставьте как текстовое содержание элемента .comments-count.
-Список комментариев под фотографией: комментарии должны вставляться в блок .social__comments. Разметка каждого комментария должна выглядеть так:
+/*Список комментариев под фотографией: комментарии должны вставляться в блок .social__comments. Разметка каждого комментария должна выглядеть так:
 <li class="social__comment">
     <img
         class="social__picture"
@@ -14,18 +9,23 @@ import { isEscapeKey, isEnterKey } from './util.js';
         width="35" height="35">
     <p class="social__text">{{текст комментария}}</p>
 </li>
-Описание фотографии description вставьте строкой в блок .social__caption.
 */
 
 const bigPicture = document.querySelector('.big-picture');
 const commentCount = bigPicture.querySelector('.social__comment-count');
 const commentLoad = bigPicture.querySelector('.comments-loader');
 const pageBody = document.querySelector('body');
-const openImg = document.querySelector('.pictures'); //под вопросом
+const openImg = document.querySelector('.pictures');
 const closeImg = bigPicture.querySelector('.big-picture__cancel');
 
-const openFullSize = () => {
+const openFullSize = (miniPhoto) => {
   //наполнение контентом
+  bigPicture.querySelector('.big-picture__img').src = miniPhoto.url;
+  bigPicture.querySelector('.likes-count').textContent = miniPhoto.likes;
+  bigPicture.querySelector('.comments-count').textContent = miniPhoto.comments.length;
+  bigPicture.querySelector('.social__comments').src = miniPhoto.url;
+  bigPicture.querySelector('.social__caption').textContent = miniPhoto.description;
+  //классы видимости
   bigPicture.classList.remove('hidden');
   commentCount.classList.add('hidden');
   commentLoad.classList.add('hidden');
@@ -67,6 +67,3 @@ closeImg.addEventListener('keydown', (evt) => {
     closeFullSize();
   }
 });
-
-openFullSize();
-//closeFullSize();
