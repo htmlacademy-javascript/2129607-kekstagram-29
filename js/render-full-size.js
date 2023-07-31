@@ -1,32 +1,45 @@
-const bigPicture = document.querySelector('.big-picture');
-const commentCount = bigPicture.querySelector('.social__comment-count');
-const commentLoad = bigPicture.querySelector('.comments-loader');
-const pageBody = document.querySelector('body');
+import { renderComments } from './render-comments.js';
 
-const renderFullSize = () => {
+const START_COMMENTS_COUNT = 5;
 
+const renderFullSize = ({url, description, likes, comments}, bigPhoto) => {
+  const bigPictureImage = bigPhoto.querySelector('.big-picture__img img');
+  const commentCounter = bigPhoto.querySelector('.social__comment-count');
+  const commentLoad = bigPhoto.querySelector('.comments-loader');
+  const commentsBlock = bigPhoto.querySelector('.social__comments');
+  const likesCounter = bigPhoto.querySelector('.likes-count');
+  const photoCaption = bigPhoto.querySelector('.social__caption');
+  const commentCount = comments.length;
+  let shownCount = 0;
 
-};
-
-const openFullSize = (miniPhoto) => {
-  //наполнение контентом
-  bigPicture.querySelector('.big-picture__img').src = miniPhoto.url;
-  bigPicture.querySelector('.likes-count').textContent = miniPhoto.likes;
-  bigPicture.querySelector('.comments-count').textContent = miniPhoto.comments.length;
-  bigPicture.querySelector('.social__comments').src = miniPhoto.url;
-  bigPicture.querySelector('.social__caption').textContent = miniPhoto.description;
-  //классы видимости
-  bigPicture.classList.remove('hidden');
-  commentCount.classList.add('hidden');
-  commentLoad.classList.add('hidden');
-  pageBody.classList.add('modal-open');
-  //добавить обработчики для закрытия:
-  document.addEventListener('keydown', (evt) => {
-    if (isEscapeKey(evt)) {
-      evt.preventDefault();
-      bigPicture.classList.add('hidden');
+  const updateComments = () => {
+    shownCount += START_COMMENTS_COUNT;
+    if (shownCount >= commentCount) {
+      shownCount = commentCount;
+      commentLoad.classList.add('hidden');
+      commentLoad.removeEventListener('click', updateComments);
+    } else {
+      commentLoad.classList.remove('hidden');
+      commentLoad.addEventListener('click', updateComments);
     }
-  });
+
+    commentsBlock.innerHTML = '';
+    commentsBlock.appendChild(renderComments(comments.slice(0, shownCount)));
+    commentCounter.innerHTML = `${shownCount} из <span class = "comments-count">${commentCount}</span> комментариев`;
+  };
+
+  bigPictureImage.src = url;
+  bigPictureImage.alt = description;
+  photoCaption.textContent = description;
+  likesCounter.textContent = likes;
+
+  if (commentCount) {
+    updateComments();
+  } else {
+    commentsBlock.innerHTML = '';
+    commentLoad.classList.add('hidden');
+    commentCounter.innerHTML = 'Будьте первым!';
+  }
 };
 
 export { renderFullSize };

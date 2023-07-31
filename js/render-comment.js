@@ -5,7 +5,7 @@ const renderComment = ({avatar, name, text}) => {
 
   newComment.querySelector('.social__picture').src = avatar;
   newComment.querySelector('.social__picture').alt = name;
-  newComment.querySelector('.social__text').src = text;
+  newComment.querySelector('.social__text').textContent = text;
 
   return newComment;
 };
