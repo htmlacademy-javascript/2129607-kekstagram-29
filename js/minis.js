@@ -1,10 +1,10 @@
 import {createDescriptions} from './create-descriptions.js';
+import './full-size.js';
 
 const minisList = document.querySelector('.pictures');
 const minisTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const minis = createDescriptions();
 const minisListFragment = document.createDocumentFragment();
-
 
 minis.forEach(({url, description, comments, likes}) => {
   const minisElement = minisTemplate.cloneNode(true);
@@ -15,4 +15,5 @@ minis.forEach(({url, description, comments, likes}) => {
   minisListFragment.appendChild(minisElement);
 });
 
+title.classList.remove('visually-hidden');
 minisList.appendChild(minisListFragment);

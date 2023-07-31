@@ -1,7 +1,20 @@
-//возвращает случайное число из заданного диапазона
 const getRandomInteger = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
 
-//возвращает случайный элемент из массива
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
-export {getRandomInteger, getRandomArrayElement};
+const createIdGenerator = () => {
+  let lastId = 0;
+
+  return function () {
+    lastId += 1;
+    return lastId;
+  };
+};
+
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+const isEnterKey = (evt) => evt.key === 'Enter';
+
+const getTargetArrayElement = (targetElement, array) => array.find((element) => element.id === Number(targetElement));
+
+export {getRandomInteger, getRandomArrayElement, createIdGenerator, isEscapeKey, isEnterKey, getTargetArrayElement};
