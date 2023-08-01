@@ -1,8 +1,16 @@
 import { isEscapeKey } from './util.js';
 import { isValidCount, isValidTag, validateTags, commentLen } from './validate.js';
+import { resetScale } from './scale-effects.js';
+import { resetEffects } from './filter-effects.js';
 
 const FILE_FORMATS = ['jpg', 'jpeg', 'png'];
 const MAX_TAGS_COUNT = 5;
+const messages = {
+  TAG_COUNT: `Максимум ${MAX_TAGS_COUNT} хештегов`,
+  TAG_CONTENT: 'Неверный хештег',
+  TAG_UNIQUE: 'Хештеги должны быть уникальными',
+  COMMENT_LEN: 'Комментарий слишком длинный!'
+};
 
 const uploadForm = document.querySelector('.img-upload__form');
 const overlay = document.querySelector('.img-upload__overlay');
@@ -23,20 +31,22 @@ const pristine = new Pristine(uploadForm, {
 
 const openUploadForm = () => {
   overlay.classList.remove('hidden');
-  pageBody.classList.add('modal-open');
+  pageBody.classList.add('modal-open');// eslint-disable-next-line no-use-before-define
   document.addEventListener('keydown', onEscKeydown);
 };
 
 const closeUploadForm = () => {
   overlay.classList.add('hidden');
   pageBody.classList.remove('modal-open');
+  resetScale();
+  resetEffects();
   uploadForm.reset();
-  pristine.reset();
+  pristine.reset();// eslint-disable-next-line no-use-before-define
   document.removeEventListener('keydown', onEscKeydown);
 };
 
 const onEscKeydown = (evt) => {
-  if (isEscapeKey() && !(document.activeElement === tagsField || document.activeElement === commentField)) {
+  if (isEscapeKey(evt) && !(document.activeElement === tagsField || document.activeElement === commentField)) {
     evt.preventDefault();
     closeUploadForm();
   }
@@ -63,13 +73,13 @@ const onFileInputChange = () => {
   openUploadForm();
 };
 
-pristine.addValidator(tagsField, isValidCount, `Максимум ${MAX_TAGS_COUNT} хештегов`);
+pristine.addValidator(tagsField, isValidCount, messages.TAG_COUNT);
 
-pristine.addValidator(tagsField, isValidTag, 'Неверный хештег');
+pristine.addValidator(tagsField, isValidTag, messages.TAG_CONTENT);
 
-pristine.addValidator(tagsField, validateTags, 'Хештеги должны быть уникальными');
+pristine.addValidator(tagsField, validateTags, messages.TAG_UNIQUE);
 
-pristine.addValidator(commentField, commentLen, 'Комментарий слишком длинный!');
+pristine.addValidator(commentField, commentLen, messages.COMMENT_LEN);
 
 const blockSubmitButton = () => {
   submitButton.disabled = true;
