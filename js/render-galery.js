@@ -20,7 +20,7 @@ const renderGallery = (photoArray) => {
       bigPhoto.classList.add('hidden');
       pageBody.classList.remove('modal-open');
       closingElement.removeEventListener('click', onCloseClick);
-      //document.removeEventListener('keydown', onCloseKeydown);
+      document.removeEventListener('keydown', onCloseKeydown);
     };
 
     const onCloseKeydown = (evt) => {
