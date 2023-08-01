@@ -31,9 +31,9 @@ const renderGallery = (photoArray) => {
 
     const onMinyClick = (evt) => {
       const targetElement = evt.target.closest('.picture');
-      evt.preventDefault();
 
       if (targetElement) {
+        evt.preventDefault();
         const galleryPhotoId = targetElement.dataset.photoId;
         const targetMiny = getTargetArrayElement(galleryPhotoId, photoArray);
 
