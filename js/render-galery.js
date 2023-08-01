@@ -19,7 +19,7 @@ const renderGallery = (photoArray) => {
     const onCloseClick = () => {
       bigPhoto.classList.add('hidden');
       pageBody.classList.remove('modal-open');
-      closingElement.removeEventListener('click', onCloseClick);
+      closingElement.removeEventListener('click', onCloseClick);// eslint-disable-next-line no-use-before-define
       document.removeEventListener('keydown', onCloseKeydown);
     };
 

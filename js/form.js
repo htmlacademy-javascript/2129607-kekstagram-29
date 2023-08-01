@@ -1,8 +1,7 @@
 import { isEscapeKey } from './util.js';
 import { isValidCount, isValidTag, validateTags, commentLen } from './validate.js';
 import { resetScale } from './scale-effects.js';
-//import { resetEffects } from './filter-effects.js';
-import { resetDefault } from './filter-effects.js';
+import { resetEffects } from './filter-effects.js';
 
 const FILE_FORMATS = ['jpg', 'jpeg', 'png'];
 const MAX_TAGS_COUNT = 5;
@@ -32,7 +31,7 @@ const pristine = new Pristine(uploadForm, {
 
 const openUploadForm = () => {
   overlay.classList.remove('hidden');
-  pageBody.classList.add('modal-open');
+  pageBody.classList.add('modal-open');// eslint-disable-next-line no-use-before-define
   document.addEventListener('keydown', onEscKeydown);
 };
 
@@ -40,10 +39,9 @@ const closeUploadForm = () => {
   overlay.classList.add('hidden');
   pageBody.classList.remove('modal-open');
   resetScale();
-  //resetEffects();
-  resetDefault();
+  resetEffects();
   uploadForm.reset();
-  pristine.reset();
+  pristine.reset();// eslint-disable-next-line no-use-before-define
   document.removeEventListener('keydown', onEscKeydown);
 };
 
