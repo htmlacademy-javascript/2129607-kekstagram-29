@@ -15,6 +15,6 @@ const validateTags = (value) => {
   return isUniqueTags(tags);
 };
 
-const commentLen = (comment) => comment.length <= 140;
+const commentLen = (comment) => comment.length < 140;
 
 export { isValidCount, isValidTag, validateTags, commentLen };
