@@ -1,41 +1,44 @@
-import { isEscapeKey } from './utils.js';
+const successMessage = document.querySelector('#success').content.querySelector('.success');
+const errorMessage = document.querySelector('#error').content.querySelector('.error');
+const body = document.querySelector('body');
 
-const popupContainer = document.querySelector('main');
-let message;
-
-const isError = () => document.querySelector('.error');
-
-function onDocumentKeydown(evt) {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    closePopup();
-  }
-}
-
-function closePopup () {
-  message.remove();
-
-  document.removeEventListener('keydown', onDocumentKeydown);
-}
-
-const onMessageClick = (evt, cls) => {
-  const classList = evt.target.classList;
-
-  if (classList.contains(`${cls}__inner`) || classList.contains(`${cls}__title`)) {
-    return;
-  }
-
-  closePopup();
+const showSuccessMessage = () => {
+  body.append(successMessage);// eslint-disable-next-line no-use-before-define
+  body.addEventListener('keydown', onEscDown);// eslint-disable-next-line no-use-before-define
+  body.addEventListener('click', onBodyClick);// eslint-disable-next-line no-use-before-define
+  successMessage.querySelector('.success__button').addEventListener('click', hideMessage);
 };
 
-function showMessage(cls) {
-  message = document.querySelector(`#${cls}`).cloneNode(true).content.querySelector(`.${cls}`);
-  popupContainer.insertAdjacentElement('afterbegin', message);
-  message.classList.remove('hidden');
+const showErrorMessage = () => {
+  body.append(errorMessage);// eslint-disable-next-line no-use-before-define
+  body.addEventListener('keydown', onEscDown);// eslint-disable-next-line no-use-before-define
+  errorMessage.querySelector('.error__button').addEventListener('click', hideMessage);
+};
 
-  message.addEventListener('click', (evt) => onMessageClick(evt, cls));
+const hideMessage = () => {
+  const messageElement =
+    document.querySelector('.success') || document.querySelector('.error');
+  messageElement.remove();// eslint-disable-next-line no-use-before-define
+  body.removeEventListener('keydown', onEscDown);// eslint-disable-next-line no-use-before-define
+  body.removeEventListener('click', onBodyClick);
+};
 
-  document.addEventListener('keydown', onDocumentKeydown);
-}
+const onBodyClick = (evt) => {
+  if (
+    evt.target.closest('.success__inner') ||
+    evt.target.closest('.error__inner')
+  ) {
+    return;
+  }
+  hideMessage();
+};
 
-export { showMessage, isError };
+const onEscDown = (evt) => {
+  if (evt.key === 'Escape') {
+    evt.preventDefault();
+    evt.stopPropagation();
+    hideMessage();
+  }
+};
+
+export { showSuccessMessage, showErrorMessage };

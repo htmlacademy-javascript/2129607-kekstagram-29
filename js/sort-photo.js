@@ -45,10 +45,8 @@ const getFilters = (array) => {
   const onFilterClick = (evt) => {
     const gallery = getFilterData(evt.target.id);
     setActiveButton(evt);
-    console.log(array);
-    console.log(gallery);
-    renderGallery(gallery);
-    //debounce(renderGallery(gallery));
+    //renderGallery(gallery);
+    debounce(renderGallery(gallery));
   };
 
   defaultButton.addEventListener('click', onFilterClick);
