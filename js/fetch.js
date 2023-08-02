@@ -20,7 +20,7 @@ const load = async (route, errorText, method = Method.GET, body = null) => {
     if (!response.ok) {
       throw new Error();
     }
-    return response.json();
+    return await response.json();
   } catch {
     throw new Error(errorText);
   }

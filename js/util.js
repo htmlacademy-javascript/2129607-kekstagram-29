@@ -17,6 +17,15 @@ const isEnterKey = (evt) => evt.key === 'Enter';
 
 const getTargetArrayElement = (targetElement, array) => array.find((element) => element.id === Number(targetElement));
 
+const debounce = (callback, timeoutDelay = 500) => {
+  let timeoutId;
+
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+};
+
 const showAlertError = (message) => {
   const alertContainer = document.createElement('div');
   alertContainer.classList.add('error-alert');
@@ -26,4 +35,4 @@ const showAlertError = (message) => {
   document.body.append(alertContainer);
 };
 
-export {getRandomInteger, getRandomArrayElement, createIdGenerator, isEscapeKey, isEnterKey, getTargetArrayElement, showAlertError};
+export {getRandomInteger, getRandomArrayElement, createIdGenerator, isEscapeKey, isEnterKey, getTargetArrayElement, debounce, showAlertError};
