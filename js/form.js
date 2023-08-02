@@ -2,6 +2,7 @@ import { isEscapeKey } from './util.js';
 import { isValidCount, isValidTag, validateTags, commentLen } from './validate.js';
 import { resetScale } from './scale-effects.js';
 import { resetEffects } from './filter-effects.js';
+//import {openMessageBox, checkTypeMessage} from './message.js';
 
 const FILE_FORMATS = ['jpg', 'jpeg', 'png'];
 const MAX_TAGS_COUNT = 5;

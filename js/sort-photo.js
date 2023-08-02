@@ -1,10 +1,7 @@
-import { data } from './load-data.js';
 import { renderGallery } from './render-galery.js';
 import { debounce } from './util.js';
 
 const RANDOM_COUNT = 10;
-console.log('random ' + RANDOM_COUNT);
-console.log('data ' + data[0]);
 
 const filters = document.querySelector('.img-filters');
 const filterButtons = filters.querySelector('.img-filters__form');
@@ -27,28 +24,32 @@ const getRandomPhotos = (photos) => {
 
 const getDiscussedPhotos = (photos) => photos.sort((a, b) => b.comments.length - a.comments.length);
 
-const filterId = {
-  'filter-default': data,
-  'filter-random': getRandomPhotos([...data]),
-  'filter-discussed': getDiscussedPhotos ([...data])
-};
+const getFilters = (array) => {
+  filters.classList.remove('img-filters--inactive');
+  renderGallery(array);
 
-const getFilterData = (id) => filterId[id];
+  const filterId = {
+    'filter-default': array,
+    'filter-random': getRandomPhotos(array),
+    'filter-discussed': getDiscussedPhotos (array)
+  };
 
-const setActiveButton = (evt) => {
-  filterButtons.querySelector('.img-filters__button--active').classList.remove('img-filters__button--active');
-  evt.target.classList.add('img-filters__button--active');
-};
+  const getFilterData = (id) => filterId[id];
 
-const onFilterClick = (evt) => {
-  const gallery = getFilterData(evt.target.id);
-  setActiveButton(evt);
-  renderGallery(gallery);
-  //debounce(renderGallery(gallery));
-};
+  const setActiveButton = (evt) => {
+    filterButtons.querySelector('.img-filters__button--active').classList.remove('img-filters__button--active');
+    evt.target.classList.add('img-filters__button--active');
+  };
 
-const getFilters = () => {
-  filterButtons.classList.remove('img-filters--inactive');
+
+  const onFilterClick = (evt) => {
+    const gallery = getFilterData(evt.target.id);
+    setActiveButton(evt);
+    console.log(array);
+    console.log(gallery);
+    renderGallery(gallery);
+    //debounce(renderGallery(gallery));
+  };
 
   defaultButton.addEventListener('click', onFilterClick);
   randomButton.addEventListener('click', onFilterClick);

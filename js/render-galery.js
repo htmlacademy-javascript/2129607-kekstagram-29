@@ -1,7 +1,6 @@
 import { renderFullSize } from './render-full-size.js';
 import { renderMiny } from './render-miny.js';
 import { isEscapeKey, getTargetArrayElement } from './util.js';
-//import { debounce } from './util.js';
 
 const renderGallery = (photoArray) => {
   if (photoArray.length) {
