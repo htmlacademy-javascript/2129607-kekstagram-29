@@ -17,4 +17,13 @@ const isEnterKey = (evt) => evt.key === 'Enter';
 
 const getTargetArrayElement = (targetElement, array) => array.find((element) => element.id === Number(targetElement));
 
-export {getRandomInteger, getRandomArrayElement, createIdGenerator, isEscapeKey, isEnterKey, getTargetArrayElement};
+const showAlertError = (message) => {
+  const alertContainer = document.createElement('div');
+  alertContainer.classList.add('error-alert');
+
+  alertContainer.textContent = message;
+
+  document.body.append(alertContainer);
+};
+
+export {getRandomInteger, getRandomArrayElement, createIdGenerator, isEscapeKey, isEnterKey, getTargetArrayElement, showAlertError};
