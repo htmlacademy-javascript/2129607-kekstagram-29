@@ -6,6 +6,7 @@ const renderGallery = (photoArray) => {
   if (photoArray.length) {
     const pageBody = document.querySelector('body');
     const minyList = document.querySelector('.pictures');
+
     const bigPhoto = document.querySelector('.big-picture');
     const closingElement = bigPhoto.querySelector('.big-picture__cancel');
     const minisListFragment = document.createDocumentFragment();

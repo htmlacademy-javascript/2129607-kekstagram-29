@@ -9,6 +9,12 @@ const defaultButton = document.querySelector('#filter-default');
 const randomButton = document.querySelector('#filter-random');
 const discussedButton = document.querySelector('#filter-discussed');
 
+const clearGallery = (array) => {
+  for (const element of array) {
+    element.remove();
+  }
+};
+
 const getRandomPhotos = (photos) => {
   const randomPhotos = [];
   for (let i = 0; i < RANDOM_COUNT; i++) {
@@ -43,9 +49,10 @@ const getFilters = (array) => {
 
 
   const onFilterClick = (evt) => {
+    const minis = document.querySelectorAll('.picture');
     const gallery = getFilterData(evt.target.id);
     setActiveButton(evt);
-    //renderGallery(gallery);
+    clearGallery(minis);
     debounce(renderGallery(gallery));
   };
 
