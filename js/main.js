@@ -14,7 +14,7 @@ try {
   renderGallery(data);
   getFilters(data);
 } catch {
-  showAlertError('Попробуйте перезагрузить страницу!');
+  showAlertError('Не удалось загрузить данные. Попробуйте обновить страницу');
 }
 
 const onSendDataSuccess = () => {
@@ -27,5 +27,5 @@ const onSendDataError = () => {
 };
 
 setOnFormSubmit(async (datas) => {
-  await sendData(onSendDataSuccess, onSendDataError, 'POST', datas);
+  await sendData(onSendDataSuccess, onSendDataError, datas);
 });
