@@ -1,5 +1,5 @@
 import { openUploadForm } from './form.js';
 
-const openButton = document.querySelector('.img-upload__control');
+const openButton = document.querySelector('.img-upload__input');
 
-openButton.addEventListener('click', openUploadForm);
+openButton.addEventListener('change', openUploadForm);
