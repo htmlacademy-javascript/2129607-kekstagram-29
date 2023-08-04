@@ -9,6 +9,12 @@ const defaultButton = document.querySelector('#filter-default');
 const randomButton = document.querySelector('#filter-random');
 const discussedButton = document.querySelector('#filter-discussed');
 
+const clearGallery = (array) => {
+  for (const element of array) {
+    element.remove();
+  }
+};
+
 const getRandomPhotos = (photos) => {
   const randomPhotos = [];
   for (let i = 0; i < RANDOM_COUNT; i++) {
@@ -22,19 +28,10 @@ const getRandomPhotos = (photos) => {
   return randomPhotos;
 };
 
-const getDiscussedPhotos = (photos) => photos.sort((a, b) => b.comments.length - a.comments.length);
+const getDiscussedPhotos = (photos) => [...photos].sort((a, b) => b.comments.length - a.comments.length);
 
 const getFilters = (array) => {
   filters.classList.remove('img-filters--inactive');
-  renderGallery(array);
-
-  const filterId = {
-    'filter-default': array,
-    'filter-random': getRandomPhotos(array),
-    'filter-discussed': getDiscussedPhotos (array)
-  };
-
-  const getFilterData = (id) => filterId[id];
 
   const setActiveButton = (evt) => {
     filterButtons.querySelector('.img-filters__button--active').classList.remove('img-filters__button--active');
@@ -43,9 +40,19 @@ const getFilters = (array) => {
 
 
   const onFilterClick = (evt) => {
+    const filterId = {
+      'filter-default': array,
+      'filter-random': getRandomPhotos(array),
+      'filter-discussed': getDiscussedPhotos(array)
+    };
+
+    const getFilterData = (id) => filterId[id];
+
+    const minis = document.querySelectorAll('.picture');
     const gallery = getFilterData(evt.target.id);
+
     setActiveButton(evt);
-    //renderGallery(gallery);
+    clearGallery(minis);
     debounce(renderGallery(gallery));
   };
 

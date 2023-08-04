@@ -23,7 +23,7 @@ const renderFullSize = ({url, description, likes, comments}, bigPhoto) => {
       commentLoad.addEventListener('click', updateComments);
     }
 
-    commentsBlock.innerHTML = '';
+    commentsBlock.textContent = '';
     commentsBlock.appendChild(renderComments(comments.slice(0, shownCount)));
     commentCounter.innerHTML = `${shownCount} из <span class = "comments-count">${commentCount}</span> комментариев`;
   };
@@ -36,9 +36,9 @@ const renderFullSize = ({url, description, likes, comments}, bigPhoto) => {
   if (commentCount) {
     updateComments();
   } else {
-    commentsBlock.innerHTML = '';
+    commentsBlock.textContent = '';
     commentLoad.classList.add('hidden');
-    commentCounter.innerHTML = 'Будьте первым!';
+    commentCounter.textContent = 'Будьте первым!';
   }
 };
 

@@ -32,7 +32,7 @@ const showAlertError = (message) => {
 
   alertContainer.textContent = message;
 
-  document.body.append(alertContainer);
+  document.body.prepend(alertContainer);
 };
 
 export {getRandomInteger, getRandomArrayElement, createIdGenerator, isEscapeKey, isEnterKey, getTargetArrayElement, debounce, showAlertError};
