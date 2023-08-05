@@ -12,6 +12,7 @@ const showSuccessMessage = () => {
 const showErrorMessage = () => {
   body.append(errorMessage);// eslint-disable-next-line no-use-before-define
   body.addEventListener('keydown', onEscDown);// eslint-disable-next-line no-use-before-define
+  body.addEventListener('click', onBodyClick);// eslint-disable-next-line no-use-before-define
   errorMessage.querySelector('.error__button').addEventListener('click', hideMessage);
 };
 
@@ -25,8 +26,7 @@ const hideMessage = () => {
 
 const onBodyClick = (evt) => {
   if (
-    evt.target.closest('.success__inner') ||
-    evt.target.closest('.error__inner')
+    evt.target.closest('.success__inner') || evt.target.closest('.error__inner')
   ) {
     return;
   }

@@ -33,7 +33,6 @@ const renderGallery = (photoArray) => {
   }
   const onMinyClick = (evt) => {
     const targetElement = evt.target.closest('.picture');
-    //const minis = document.querySelectorAll('.picture');
     if (targetElement) {
       evt.preventDefault();
       const galleryPhotoId = targetElement.dataset.photoId;

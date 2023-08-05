@@ -10,7 +10,6 @@ import { renderGallery } from './render-galery.js';
 let data = null;
 try {
   data = await getData();
-  //console.log(data);
   renderGallery(data);
   getFilters(data);
 } catch {
