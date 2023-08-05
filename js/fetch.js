@@ -4,11 +4,6 @@ const Route = {
   SEND_DATA: '/',
 };
 
-// const errorMessage = {
-//   GET_MESSAGE: 'Не удалось загрузить данные. Попробуйте обновить страницу',
-//   SEND_MESSAGE: 'Не удалось отправить форму. Попробуйте ещё раз',
-// };
-
 const getData = async (body = null) => {
   try {
     const response = await fetch(`${BASE_URL}${Route.GET_DATA}`, {method: 'GET', body});
